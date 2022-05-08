@@ -1,9 +1,9 @@
 //モデルの位置
 const posX = 0;
 const posY = 0;
-const posZ = 1.5;
+const posZ = 0;
 //モデルのサイズ
-const scale = 2;
+const scale = 1;
 
 //黒枠の幅（ジェネレータのPatternRatioと合わせる）
 const patternRatio = 0.9;
@@ -114,7 +114,7 @@ const loadModel = async () => {
   //vrmファイルの読み込み
   const vrmLoader = new THREE.VRMLoader();
   const result = await new Promise(resolve => {
-    vrmLoader.load("assets/VRoid.vrm", (vrm) => {
+    vrmLoader.load("assets/Taikenkun.vrm", (vrm) => {
       vrm.scene.position.x = posX;
       vrm.scene.position.y = posY;
       vrm.scene.position.z = posZ;
@@ -124,7 +124,7 @@ const loadModel = async () => {
       vrm.scene.rotation.x = 0.0;
       vrm.scene.rotation.y = Math.PI;
       vrm.scene.rotation.z = 0.0;
-      if(!stand){ vrm.scene.rotation.x = -Math.PI / 2.0; }
+      // if(!stand){ vrm.scene.rotation.x = -Math.PI / 2.0; }
 
       markerScene.add(vrm.scene);
 
@@ -162,17 +162,17 @@ const loadModel = async () => {
 
       //別のgltfからモーションを借用。本来は不要な処理
       //http://examples.claygl.xyz/examples/basicModelAnimation.html
-      const boneLoader = new THREE.GLTFLoader();
-      boneLoader.load("assets/SambaDancing.gltf", function(bone){
-        const animations = bone.animations;
-        if(animations && animations.length){
-          for(let animation of animations){
-            correctBoneName(animation.tracks);
-            correctCoordinate(animation.tracks);
-            mixer.clipAction(animation).play();
-          }
-        }
-      });
+      // const boneLoader = new THREE.GLTFLoader();
+      // boneLoader.load("assets/SambaDancing.gltf", function(bone){
+      //   const animations = bone.animations;
+      //   if(animations && animations.length){
+      //     for(let animation of animations){
+      //       correctBoneName(animation.tracks);
+      //       correctCoordinate(animation.tracks);
+      //       mixer.clipAction(animation).play();
+      //     }
+      //   }
+      // });
 
       return resolve(vrm.scene);
     });
